@@ -10,22 +10,23 @@ test('has home page', async ({ page }) => {
   await expect(page.locator('footer')).toHaveText('Greenwood v0.27.2 ◈ This site is powered by Netlify');
 });
 
-// test('has docs page', async ({ page }) => {
-//   await page.goto('https://www.greenwoodjs.io/');
-//   await page.locator('link.app-header').click();
+test('has docs page', async ({ page }) => {
+  await page.goto('https://www.greenwoodjs.io/');
+  await page.locator('app-header a[href$="/docs/"]').nth(1).click();
 
-//   await expect(page).toHaveTitle(/Greenwood - Docs/);
-// });
+  await expect(page).toHaveTitle(/Greenwood - Docs/);
+});
 
-// test('has blog page', async ({ page }) => {
-//   await page.goto('https://playwright.dev/');
+test('has a blog page and blog posts', async ({ page }) => {
+  const postTitle = 'State of Greenwood (2022)';
 
-//   // Click the get started link.
-//   await page.getByRole('link', { name: 'Get started' }).click();
+  await page.goto('https://www.greenwoodjs.io/');
+  await page.locator('app-header a[href$="/blog/"]').nth(1).click();
+  await expect(page).toHaveTitle(/Greenwood - Blog/);
 
-//   // Expects the URL to contain intro.
-//   await expect(page).toHaveURL(/.*intro/);
-// });
+  await page.getByText(postTitle).click()
+  await expect(page.locator('h1')).toHaveText(postTitle);
+});
 
 // test('has static routing', async ({ page }) => {
 //   await page.goto('https://playwright.dev/');

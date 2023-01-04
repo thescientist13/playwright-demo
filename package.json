@@ -7,7 +7,7 @@
   },
   "scripts": {
     "playwright": "playwright",
-    "e2e": "npm run playwright -- test"
+    "e2e": "npm run playwright test"
   },
   "devDependencies": {
     "@playwright/test": "^1.29.1"
